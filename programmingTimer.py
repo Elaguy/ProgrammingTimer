@@ -13,17 +13,20 @@ def timerRun(programRunning, mins, dir, exportFile, completeDir):
 
         except KeyboardInterrupt:
             exportTime(mins, dir, exportFile, completeDir)
-            time.sleep(3)
             programRunning = False
 
 def exportTime(mins, dir, exportFile, completeDir):
-    if(os.path.exists(dir) == False):
-        os.makedirs(dir)
-    
-    file = open(completeDir, 'a')
-    file.write("<" + getDateTime() + ">" + " " + str(mins) + " " + " minute(s)," + " " + str(((mins*60)/3600)) + " hour(s)\n")
-    file.close()
-    print("Time successfully exported to %s" % completeDir)
+	if(dir != ''):
+		if(os.path.exists(dir) == False):
+		    os.makedirs(dir)
+		
+		file = open(completeDir, 'a')
+		file.write("<" + getDateTime() + ">" + " " + str(mins) + " " + " minute(s)," + " " + str(((mins*60)/3600)) + " hour(s)\n")
+		file.close()
+		print("Time successfully exported to %s" % completeDir)
+		
+	else:
+		print("Could not export, directory input is empty")
 
 def getDateTime():
     now = datetime.datetime.now()
@@ -46,7 +49,7 @@ def getDateTime():
 
 programRunning = True
 mins = 0
-dir = r"C:\Users\Elaguy\Documents\Programming Times"
+dir = input("Enter a directory to save results: ")
 exportFile = r"programmingTimes.txt"
 completeDir = os.path.join(dir, exportFile)
 
